@@ -8,8 +8,6 @@ public class Player extends Sprite {
     public Body body;
 
     public void draw(SpriteBatch batch){
-
-        super.draw(batch);
     }
 
     public void update(float delta){

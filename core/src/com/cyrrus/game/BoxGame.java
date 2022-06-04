@@ -22,7 +22,7 @@ public class BoxGame extends Game {
 	@Override
 	public void render () {
 		super.render();
-		ScreenUtils.clear(0.1f, 0.1f, .1f, 1);
+//		ScreenUtils.clear(0.1f, 0.1f, .1f, 1);
 
 	}
 	

@@ -2,6 +2,8 @@ package com.cyrrus.game.screens;
 
 import static com.cyrrus.game.util.Constants.DEFAULT_ZOOM;
 import static com.cyrrus.game.util.Constants.GRAVITY;
+import static com.cyrrus.game.util.Constants.PosIterations;
+import static com.cyrrus.game.util.Constants.VeloIterations;
 import static com.cyrrus.game.util.Constants.ViewportSize;
 
 import com.badlogic.gdx.Gdx;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -63,20 +66,23 @@ public class PlayScreen implements Screen {
 
         b2dDebugRenderer.render(world, cam.combined);
 
+        spriteBatch.begin();
         draw();
+        spriteBatch.end();
+
         player.update(delta);
         camReposition();
-        world.step(delta,6,2);
+        world.step(delta,VeloIterations,PosIterations);
     }
 
 
     private void draw() {
 //        draw player
-//        player.setPosition(player.body.getPosition().x, player.body.getPosition().y);
-//        player.setRotation();
-//        player.draw(spriteBatch);
+        player.setPosition(player.body.getPosition().x, player.body.getPosition().y);
+        player.setRotation(player.body.getAngle() * MathUtils.radiansToDegrees);
+        player.draw(spriteBatch);
 
-        System.out.println(player.body.getPosition().x+" " + player.body.getPosition().y+" , "+ cam.position.x+ " " + cam.position.y);
+//        System.out.println(player.body.getPosition().x+" " + player.body.getPosition().y+" , "+ cam.position.x+ " " + cam.position.y);
     }
 
     private void camReposition() {

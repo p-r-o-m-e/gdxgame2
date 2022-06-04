@@ -28,7 +28,6 @@ public abstract class ShapeFactory {
      body.createFixture(fDef);
      pShape.dispose();
 
-     System.out.println("generated body, "+ size.x/PPM +" ");
      return body;
     }
 }

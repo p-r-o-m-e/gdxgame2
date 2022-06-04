@@ -8,4 +8,7 @@ public abstract class Constants {
     public static final float DEFAULT_ZOOM = 6f;
     public static final float PPM = 50.0f;
     public static final float[] ViewportSize = {300/PPM, 240/PPM};
+    public static final int VeloIterations = 6;
+    public static final int PosIterations = 2;
+
 }
