@@ -41,7 +41,7 @@ public class PlayScreen implements Screen {
         b2dDebugRenderer = new Box2DDebugRenderer();
         vPort = new FillViewport(ViewportSize[0], ViewportSize[1], cam);
 
-        cam.setToOrtho(false, 300, 240);
+        cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam.position.set (new Vector2(cam.viewportWidth * .5f, cam.viewportHeight * .5f), 0f);
 
         player=new Player();
