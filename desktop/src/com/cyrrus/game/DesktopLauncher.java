@@ -12,7 +12,7 @@ public class DesktopLauncher {
 		config.setWindowedMode(800, 540);
 //		config.setResizable(false);
 		config.useVsync(true);
-		config.setTitle("Clash of Cars : Battle Royale");
+		config.setTitle("Clash of Cars : 8 bit warfare");
 		new Lwjgl3Application(new BoxGame("Desktop"), config);
 	}
 }
