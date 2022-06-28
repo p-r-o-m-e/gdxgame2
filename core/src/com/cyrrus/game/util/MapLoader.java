@@ -2,10 +2,12 @@ package com.cyrrus.game.util;
 
 import static com.cyrrus.game.entities.Player.getSpriteSize;
 import static com.cyrrus.game.util.Constants.DEFAULT_MAP;
+import static com.cyrrus.game.util.Constants.PPM;
 
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -22,10 +24,15 @@ public class MapLoader implements Disposable {
     private static final String WALL_LAYER = "walls";
     private static final String PLAYER_LAYER = "player";
 
+    public final OrthogonalTiledMapRenderer renderer;
+
     public MapLoader(World wrld){
 
         this.world = wrld;
         tMap = new TmxMapLoader().load(DEFAULT_MAP);
+
+        //---------------- RESIZE MAP ---------------
+        renderer = new OrthogonalTiledMapRenderer(tMap, tMap.getProperties().get("width", Integer.class)/(PPM*90.0f));
 
         final Array<RectangleMapObject> walls = tMap.getLayers().get(WALL_LAYER).getObjects().getByType(RectangleMapObject.class);
         for (RectangleMapObject rMAPobj: walls
@@ -50,5 +57,6 @@ public class MapLoader implements Disposable {
     @Override
     public void dispose() {
         tMap.dispose();
+        renderer.dispose();
     }
 }

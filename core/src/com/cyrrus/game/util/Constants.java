@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Constants {
     //Declare and intitialise constants
     public static final Vector2 GRAVITY = new Vector2(0f,0f);
-    public static final float DEFAULT_ZOOM = 1.7f;
-    public static final float PPM = 30.0f;
+    public static final float DEFAULT_ZOOM = 1.70f;//1.7f
+    public static final float PPM = 64.0f;
     public static final float[] ViewportSize = {300/PPM, 240/PPM};
     public static final int VeloIterations = 6;
     public static final int PosIterations = 2;

@@ -11,17 +11,22 @@ import static com.cyrrus.game.util.Constants.TURN_DIRECTION_RIGHT;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.cyrrus.game.entities.weapons.minigun;
 import com.cyrrus.game.util.MathFun;
 
 public class Player extends Sprite {
+
+    public final minigun minigun;
+
     public Body body;
     private TextureRegion playerIMG;
-    private TextureRegion[][] texturePartitions;
+    private TextureRegion[][] textureArray;
     private Vector2 ForceVector;
 
     public static float getSpriteSize() {
@@ -29,9 +34,9 @@ public class Player extends Sprite {
     }
 
     private static final float TURN_SPEED = 1.4f;
-    private static final float DRIVE_SPEED = 40.0f/PPM;
-    private static final float DRIFT = 27.0f/PPM;
-    private static final float MAX_SPEED = 100.0f/PPM;
+    private static final float DRIVE_SPEED = 2f;
+    private static final float DRIFT = 0.9f;
+    private static final float MAX_SPEED = 1.3f;
 
     private final static float SPRITE_SIZE = 3f;
 
@@ -48,13 +53,15 @@ public class Player extends Sprite {
 
     public Player() {
         Texture texture = new Texture(Gdx.files.internal("entities/ts.gif"));
-        texturePartitions = TextureRegion.split(texture, 16, 16);
-        playerIMG = texturePartitions[0][0];
+        textureArray = TextureRegion.split(texture, 16, 16);
+        playerIMG = textureArray[0][0];
         this.setRegion(playerIMG);
-        this.setSize(getSpriteSize()*15f/PPM/2,getSpriteSize()*15f/PPM/2);
+        this.setSize(getSpriteSize()*8.0f/PPM,getSpriteSize()*8.0f/PPM);
         ForceVector = new Vector2(0f,0f);
+
+        minigun = new minigun(this);
     }
-    public void drawPlayer(SpriteBatch batch){
+    public void drawPlayer(Batch batch){
         this.draw(batch);
     }
 
@@ -94,10 +101,10 @@ public class Player extends Sprite {
         }
 
         handleDrift();
-        System.out.println(body.getLinearVelocity().len());
     }
 
     private void handleDrift() {
-        body.setLinearVelocity(getFwrdVelocity().x+getLateralVelocity().x*DRIFT, getFwrdVelocity().y + getLateralVelocity().y*DRIFT);
+        body.setLinearVelocity(getFwrdVelocity().x+getLateralVelocity().x*DRIFT,
+                getFwrdVelocity().y + getLateralVelocity().y*DRIFT);
     }
 }
