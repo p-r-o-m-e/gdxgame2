@@ -1,8 +1,6 @@
 package com.cyrrus.game.entities;
 
-import static com.cyrrus.game.util.Constants.DEFAULT_ZOOM;
 import static com.cyrrus.game.util.Constants.DRIVE_DIRECTION_DOWN;
-import static com.cyrrus.game.util.Constants.DRIVE_DIRECTION_NONE;
 import static com.cyrrus.game.util.Constants.DRIVE_DIRECTION_UP;
 import static com.cyrrus.game.util.Constants.PPM;
 import static com.cyrrus.game.util.Constants.TURN_DIRECTION_LEFT;
@@ -13,11 +11,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.cyrrus.game.entities.weapons.minigun;
+import com.cyrrus.game.entities.weapons.minigun.minigun;
 import com.cyrrus.game.util.MathFun;
 
 public class Player extends Sprite {
@@ -25,8 +22,8 @@ public class Player extends Sprite {
     public final minigun minigun;
 
     public Body body;
-    private TextureRegion playerIMG;
-    private TextureRegion[][] textureArray;
+    private final TextureRegion playerIMG;
+    private final TextureRegion[][] textureArray;
     private Vector2 ForceVector;
 
     public static float getSpriteSize() {
@@ -62,6 +59,7 @@ public class Player extends Sprite {
         minigun = new minigun(this);
     }
     public void drawPlayer(Batch batch){
+
         this.draw(batch);
     }
 

@@ -1,13 +1,12 @@
 package com.cyrrus.game.screens;
 
-import static com.cyrrus.game.entities.weapons.Weapon.weaponUpdate;
-import static com.cyrrus.game.entities.weapons.Weapon.weaponsList;
+import static com.cyrrus.game.entities.weapons.abstraction.Weapon.weaponUpdate;
+import static com.cyrrus.game.entities.weapons.abstraction.Weapon.weaponsList;
 import static com.cyrrus.game.util.Constants.DEFAULT_ZOOM;
 import static com.cyrrus.game.util.Constants.DRIVE_DIRECTION_DOWN;
 import static com.cyrrus.game.util.Constants.DRIVE_DIRECTION_NONE;
 import static com.cyrrus.game.util.Constants.DRIVE_DIRECTION_UP;
 import static com.cyrrus.game.util.Constants.GRAVITY;
-import static com.cyrrus.game.util.Constants.PPM;
 import static com.cyrrus.game.util.Constants.PosIterations;
 import static com.cyrrus.game.util.Constants.TURN_DIRECTION_LEFT;
 import static com.cyrrus.game.util.Constants.TURN_DIRECTION_NONE;
@@ -31,9 +30,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cyrrus.game.entities.Player;
-import com.cyrrus.game.entities.weapons.Weapon;
+import com.cyrrus.game.entities.weapons.abstraction.Weapon;
 import com.cyrrus.game.util.InputHandler;
 import com.cyrrus.game.util.MapLoader;
+import com.cyrrus.game.util.ShapeFactory;
 
 public class PlayScreen implements Screen {
     private final Batch gameBatch;
@@ -108,6 +108,7 @@ public class PlayScreen implements Screen {
         weaponUpdate(delta);
         camReposition();
         world.step(delta,VeloIterations,PosIterations);
+        ShapeFactory.destroyBodies();
     }
 
     private void drawShapes() {
@@ -117,7 +118,6 @@ public class PlayScreen implements Screen {
             System.out.println("drawing shapes");
             for (Weapon weapon:weaponsList)
             {
-                System.out.print(" ( "+ weapon.trajectory.size +" )");
                 shapeRenderer.line(weapon.trajectory.first(),weapon.trajectory.get(weapon.trajectory.size-1));
 //                for (Vector2 v:weapon.trajectory
 //                ) {

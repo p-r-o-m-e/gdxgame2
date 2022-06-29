@@ -2,12 +2,33 @@ package com.cyrrus.game.util;
 
 import static com.cyrrus.game.util.Constants.PPM;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 
 public class MathFun {
 
     private MathFun(){}
+
+    public static float getAngularImpulse(float angle, float angularVelocity,
+                                     float desiredAngle, float inertia)
+    {
+        final float nextAngle = angle+angularVelocity/60.0f;
+        float totalRotation = desiredAngle - nextAngle;
+        final float desiredAngularVelocity;
+        final float impulse;
+
+        while (totalRotation < -180 * MathUtils.degreesToRadians)
+            totalRotation+=360 * MathUtils.degreesToRadians;
+        while (totalRotation > 180 * MathUtils.degreesToRadians)
+            totalRotation-=360 * MathUtils.degreesToRadians;
+
+        desiredAngularVelocity = totalRotation * 60;
+        impulse = inertia * desiredAngularVelocity ;//disregard time factor 'cuz of quick boost
+
+        return impulse;
+    }
 
     public static Vector2 multiplyVector2(float multiplicand, Vector2 vector2){
         return new Vector2(multiplicand * vector2.x, multiplicand * vector2.y);

@@ -34,6 +34,7 @@ public class MapLoader implements Disposable {
         //---------------- RESIZE MAP ---------------
         renderer = new OrthogonalTiledMapRenderer(tMap, tMap.getProperties().get("width", Integer.class)/(PPM*90.0f));
 
+        //create invicible walls
         final Array<RectangleMapObject> walls = tMap.getLayers().get(WALL_LAYER).getObjects().getByType(RectangleMapObject.class);
         for (RectangleMapObject rMAPobj: walls
              ) {
